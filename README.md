@@ -19,4 +19,4 @@ email_configuration {
 }
 ```
 
-where de `SES_EMAIL_ARN` is the ARN of the resource created when you execute the **ses.tf** file.
+where the `SES_EMAIL_ARN` is the ARN of the resource created when you execute the **ses.tf** file.
