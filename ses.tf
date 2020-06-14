@@ -15,16 +15,6 @@ variable "secret_key" {
   description = "The aws development account secret key"
 }
 
-variable "domain" {
-  type        = string
-  description = "The email domain"
-}
-
-variable "env" {
-  type        = string
-  description = "The environment"
-}
-
 // Providers
 provider "aws" {
   version    = "~> 2.57"
@@ -35,7 +25,7 @@ provider "aws" {
 
 // Resources
 resource "aws_ses_domain_identity" "domain" {
-  domain = "gabrielaraujo"
+  domain = "{{EMAIL_DOMAIN}}"
 }
 
 resource "aws_ses_domain_dkim" "domain_dkim" {
@@ -43,7 +33,7 @@ resource "aws_ses_domain_dkim" "domain_dkim" {
 }
 
 resource "aws_s3_bucket" "emails_bucket" {
-  bucket = "gabriel.araujo-emails"
+  bucket = "{{UNIQUE_BUCKET_NAME}}"
 }
 
 resource "null_resource" "delay" {
@@ -69,7 +59,7 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
                 "Service": "ses.amazonaws.com"
             },
             "Action": "s3:PutObject",
-            "Resource": "arn:aws:s3:::wiimove-emails-${var.env}/*"
+            "Resource": "arn:aws:s3:::gabriel.araujo-emails/*"
         }
     ]
 }
